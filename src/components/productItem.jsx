@@ -5,8 +5,8 @@ const ProductItem = ({ product }) => {
    const des = product.description.substring(0, 50) + "..."
    const [show ,setShow] = useState(false)
    return (
-      <div className="border p-4 rounded shadow-sm overflow-hidden border-red-400">
-         <div className="h-28 w-24 flex-shrink-0 overflow-hidden rounded-md ">
+      <div className="border p-4  rounded shadow-sm overflow-hidden border-red-400">
+         <div className="h-28 w-24 flex justify-center items-center ">
          <img
             src={product.image}
             alt={product.name}
