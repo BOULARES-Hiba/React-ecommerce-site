@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { GlobalContext } from "../../context/globalContext";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [err, setErr] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-
+  const { cart,changeCart } = useContext(GlobalContext)
   async function fetchProduct() {
     setLoading(true);
     setErr(null);
@@ -32,7 +33,7 @@ const ProductDetails = () => {
 
   return (
     product && (
-      <div className="container mx-auto mt-4 p-4">
+      <div className="container mx-auto mt-4 p-4 border  border-red-400 rounded-lg">
         <h1 className="text-3xl font-bold">{product.title}</h1>
         <img
           src={product.image}
@@ -40,11 +41,11 @@ const ProductDetails = () => {
           className="w-full h-40 object-contain mt-4 mb-4 rounded"
         />
         <p className="text-gray-700 text-lg">{product.description}</p>
-           <div className="text-xl font-semibold mt-4">${product.price}</div>
+           <div className="text-3xl font-semibold mt-4 text-center">${product.price}</div>
            <div className="flex justify-center">
               
-        <button className="mt-4 px-4  bg-red-400 text-white py-2 rounded hover:bg-red-500">
-          Add to Cart
+        <button onClick={()=>changeCart(product)}  className="mt-4 px-4  bg-red-400 text-white py-2 rounded hover:bg-red-500">
+          {cart.findIndex(item=> item.id ===product.id)!== -1 ?"Remove from cart" : "Add to cart" }
         </button>
            </div>
       </div>
